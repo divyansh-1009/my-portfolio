@@ -1,13 +1,39 @@
+"use client"
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const greeting = "Hi,";
   const intro = "I'm ";
   const name = "ivyansh";
   const subtitle = "FULLSTACK DEVELOPER || AI/ML ENTHUSIAST";
+  
+  const [displayedSubtitle, setDisplayedSubtitle] = useState("");
+  const [isSubtitleComplete, setIsSubtitleComplete] = useState(false);
+  
+  // Animation for typing effect
+  useEffect(() => {
+    let currentIndex = 0;
+    const subtitleLength = subtitle.length;
+    const delayPerChar = 5000 / subtitleLength;
+    
+    if (!isSubtitleComplete) {
+      const typingInterval = setInterval(() => {
+        if (currentIndex <= subtitleLength) {
+          setDisplayedSubtitle(subtitle.substring(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+          setIsSubtitleComplete(true);
+        }
+      }, delayPerChar);
+      
+      return () => clearInterval(typingInterval);
+    }
+  }, [subtitle, isSubtitleComplete]);
   
   const AnimatedText = ({ text, className }: { text: string, className?: string }) => {
     return (
@@ -24,6 +50,17 @@ export default function Home() {
         ))}
       </span>
     );
+  };
+
+  const cursorVariants = {
+    blinking: {
+      opacity: [0, 1, 0],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        repeatType: "loop" as const,
+      },
+    },
   };
 
   return (
@@ -49,7 +86,16 @@ export default function Home() {
             </span>
           </h1>
           <h2 className="text-xl md:text-2xl text-gray-500 dark:text-gray-400">
-            <AnimatedText text={subtitle} />
+            <AnimatedText text={displayedSubtitle} />
+            {!isSubtitleComplete && (
+              <motion.span 
+                className="inline-block"
+                variants={cursorVariants}
+                animate="blinking"
+              >
+                |
+              </motion.span>
+            )}
           </h2>
           
           <div className="mt-6">

@@ -34,7 +34,6 @@ export default function Sidebar() {
     { name: "LinkedIn", url: "https://www.linkedin.com/in/divyansh-yadav-b17b2b328/", icon: faLinkedin },
     { name: "GitHub", url: "https://github.com/divyansh-1009", icon: faGithub },
     { name: "Email", url: "mailto:b24cs1027@iitj.ac.in", icon: faEnvelope },
-    { name: "Instagram", url: "https://instagram.com/its_.divyansh10", icon: faInstagram },
     { name: "Phone", url: "tel:+919210992006", icon: faPhone }
   ];
 
