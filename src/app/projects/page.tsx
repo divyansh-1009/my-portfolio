@@ -6,23 +6,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export default function Projects() {
-  const AnimatedHeader = ({ text }: { text: string }) => {
-    return (
-      <h1 className="text-4xl md:text-5xl font-bold mb-16 inline-block text-[#ffd700] font-serif">
-        {text.split('').map((char, index) => (
-          <span 
-            key={index} 
-            className={`inline-block transition-all duration-200 hover:scale-125 origin-center ${
-              char === ' ' ? 'mr-2' : ''
-            }`}
-          >
-            {char === ' ' ? '\u00A0' : char}
-          </span>
-        ))}
-      </h1>
-    );
-  };
-
   const projects = [
     {
       id: 1,
@@ -55,7 +38,16 @@ export default function Projects() {
       <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24">
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
-            <AnimatedHeader text="MY PROJECTS" />
+            {/* Animated header without character splitting */}
+            <motion.h1 
+              className="text-4xl md:text-5xl font-bold mb-16 inline-block text-[#ffd700] font-serif"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              MY PROJECTS
+            </motion.h1>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

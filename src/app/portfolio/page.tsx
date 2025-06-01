@@ -18,23 +18,6 @@ import {
 import { SiTypescript, SiMongodb, SiExpress, SiSpringboot, SiCplusplus } from 'react-icons/si';
 
 export default function Portfolio() {
-  const AnimatedHeader = ({ text }: { text: string }) => {
-    return (
-      <h1 className="text-4xl md:text-5xl font-bold mb-16 inline-block text-[#ffd700] font-serif">
-        {text.split('').map((char, index) => (
-          <span 
-            key={index} 
-            className={`inline-block transition-all duration-200 hover:scale-125 origin-center ${
-              char === ' ' ? 'mr-2' : ''
-            }`}
-          >
-            {char === ' ' ? '\u00A0' : char}
-          </span>
-        ))}
-      </h1>
-    );
-  };
-
   const skills = [
     { name: 'C/C++', icon: <SiCplusplus />, color: '#00599C' },
     { name: 'Python', icon: <FontAwesomeIcon icon={faPython} />, color: '#3776AB' },
@@ -57,58 +40,68 @@ export default function Portfolio() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen min-w-full p-8 sm:p-16 md:p-20 flex flex-col">
-        <div className="text-center mb-8">
-          <AnimatedHeader text="TECHNICAL SKILLS" />
-        </div>
-        
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-10">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={index}
-              className="skill-card bg-black/20 backdrop-blur-sm rounded-lg p-4 flex flex-col items-center justify-center hover:bg-black/40 transition-all duration-300 border border-transparent hover:border-[#ffd700]/30"
-              initial={{ opacity: 0, y: 20 }}
+      <div className="min-h-screen flex flex-row justify-end relative">
+        <div className="w-[60%] p-8 sm:p-16 md:p-20 pl-0">
+          <div className="max-w-3xl">
+            <motion.h1 
+              className="text-4xl md:text-5xl font-bold mb-16 inline-block text-[#ffd700] font-serif"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: `0 0 20px ${skill.color}40`,
-                y: -5
-              }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
             >
-              <div 
-                className="text-4xl mb-3 transition-all duration-300"
-                style={{ color: skill.color }}
-              >
-                {skill.icon}
-              </div>
-              <h3 className="text-lg font-medium text-center">{skill.name}</h3>
-              
-              {/* Animated shards/particles */}
-              <div className="skill-shards absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100">
-                {[...Array(5)].map((_, i) => (
-                  <motion.span
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full"
-                    style={{ backgroundColor: skill.color }}
-                    initial={{ x: 0, y: 0, opacity: 0 }}
-                    animate={{ 
-                      x: Math.random() * 100 - 50, 
-                      y: Math.random() * 100 - 50, 
-                      opacity: [0, 1, 0],
-                      scale: [1, 1.5, 0]
-                    }}
-                    transition={{ 
-                      duration: 1 + Math.random(), 
-                      repeat: Infinity, 
-                      repeatType: 'loop',
-                      delay: Math.random() * 2
-                    }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ))}
+              TECHNICAL SKILLS
+            </motion.h1>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-10">
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={index}
+                  className="skill-card bg-black/20 backdrop-blur-sm rounded-lg p-4 flex flex-col items-center justify-center hover:bg-black/40 transition-all duration-300 border border-transparent hover:border-[#ffd700]/30 group"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    boxShadow: `0 0 20px ${skill.color}40`,
+                    y: -5
+                  }}
+                >
+                  <div 
+                    className="text-4xl mb-3 transition-all duration-300"
+                    style={{ color: skill.color }}
+                  >
+                    {skill.icon}
+                  </div>
+                  <h3 className="text-lg font-medium text-center">{skill.name}</h3>
+                  
+                  {/* Animated shards/particles */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100">
+                    {[...Array(5)].map((_, i) => (
+                      <motion.span
+                        key={i}
+                        className="absolute w-1 h-1 rounded-full"
+                        style={{ backgroundColor: skill.color }}
+                        initial={{ x: '50%', y: '50%', opacity: 0 }}
+                        animate={{ 
+                          x: `${50 + (Math.random() * 100 - 50)}%`, 
+                          y: `${50 + (Math.random() * 100 - 50)}%`, 
+                          opacity: [0, 1, 0],
+                          scale: [1, 1.5, 0]
+                        }}
+                        transition={{ 
+                          duration: 1 + Math.random(), 
+                          repeat: Infinity, 
+                          repeatType: "loop",
+                          delay: Math.random() * 2
+                        }}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
