@@ -14,8 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faLinkedin,
-  faGithub,
-  faInstagram
+  faGithub
 } from "@fortawesome/free-brands-svg-icons";
 import { useState, useEffect } from "react";
 
