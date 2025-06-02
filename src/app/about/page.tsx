@@ -12,7 +12,7 @@ export default function About(){
   useEffect(() => {
     const intervalId = setInterval(() => {
       setRotation(prevRotation => (prevRotation + 1) % 360);
-    }, 1); 
+    }, 20); 
 
     return () => clearInterval(intervalId);
   }, []);
