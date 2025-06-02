@@ -39,7 +39,7 @@ export default function Portfolio() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-23vmax] md:ml-[-10vmax]">
+      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-23vmax] md:ml-[-13vmax]">
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             <motion.h1 

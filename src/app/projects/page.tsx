@@ -34,7 +34,7 @@ export default function Projects() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24">
+      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-22vmax] md:ml-[-14vmax]">
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             {/* Animated header without character splitting */}
@@ -58,7 +58,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ 
                   scale: 1.03,
-                  boxShadow: "0 10px 30px -15px rgba(255, 215, 0, 0.2)"
+                  boxShadow: "0 2vmax 6vmax -3vmax rgba(255, 215, 0, 0.2)"
                 }}
               >
                 <div className="relative h-48 w-full overflow-hidden">
@@ -97,7 +97,7 @@ export default function Projects() {
             
             {/* Loading animation for more projects coming soon */}
             <motion.div 
-              className="bg-black/20 backdrop-blur-sm rounded-lg overflow-hidden border border-dashed border-[#ffd700]/30 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[350px] px-8"
+              className="bg-black/20 backdrop-blur-sm rounded-lg overflow-hidden border border-dashed border-[#ffd700]/30 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[350px] p-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
