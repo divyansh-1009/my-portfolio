@@ -58,9 +58,9 @@ export default function Home() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen p-8 sm:p-20">
+      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen p-8 sm:p-20 ml-[-20vmax] md:ml-0">
         {/* Text content */}
-        <main className="flex flex-col gap-6 md:w-1/2">
+        <main className="flex flex-col gap-6 w-full md:w-1/2">
           <motion.h1 
             className="text-5xl md:text-7xl font-bold"
             initial={{ opacity: 0, y: 20 }}
@@ -138,12 +138,12 @@ export default function Home() {
 
         {/* Coding person animation with neon effects */}
         <motion.div 
-          className="hidden md:flex mt-10 md:mt-0 md:w-1/2 justify-center items-center"
+          className="flex mt-16 md:mt-0 w-full md:w-1/2 justify-center items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="relative w-80 h-80">
+          <div className="relative w-72 h-72 md:w-80 md:h-80">
             {/* Coder silhouette */}
             <motion.div 
               className="absolute inset-0 z-10"
@@ -157,7 +157,7 @@ export default function Home() {
                   d="M250,120 C270,120 290,130 300,150 C305,160 300,170 310,175 C320,180 330,170 335,180 C340,190 330,200 340,210 C350,220 360,210 370,220 C380,230 370,240 380,250 L380,350 L300,350 L300,380 L340,380 L340,400 L160,400 L160,380 L200,380 L200,350 L120,350 L120,250 C130,240 140,230 150,220 C160,210 170,220 180,210 C190,200 180,190 185,180 C190,170 200,180 205,175 C210,170 205,160 210,150 C220,130 230,120 250,120 z"
                   className="fill-black/40 stroke-[#00ffff] stroke-2"
                   style={{ 
-                    filter: 'drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px #00ffff)'
+                    filter: 'drop-shadow(0 0 10vmax #00ffff) drop-shadow(0 0 20vmax #00ffff)'
                   }}
                 />
                 
@@ -166,7 +166,7 @@ export default function Home() {
                   x="170" y="280" width="160" height="110" rx="5" 
                   className="fill-black/60 stroke-[#ffd700] stroke-2"
                   style={{ 
-                    filter: 'drop-shadow(0 0 5px #ffd700)'
+                    filter: 'drop-shadow(0 0 5vmax #ffd700)'
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -183,7 +183,7 @@ export default function Home() {
                     height="6"
                     className="fill-[#00ffff]"
                     style={{ 
-                      filter: 'drop-shadow(0 0 3px #00ffff)'
+                      filter: 'drop-shadow(0 0 3vmax #00ffff)'
                     }}
                     initial={{ width: 0, opacity: 0 }}
                     animate={{ 
@@ -204,7 +204,7 @@ export default function Home() {
                   cx="250" cy="145" r="20"
                   className="fill-[#ff00ff]/40 stroke-[#ff00ff] stroke-1"
                   style={{ 
-                    filter: 'drop-shadow(0 0 8px #ff00ff)'
+                    filter: 'drop-shadow(0 0 8vmax #ff00ff)'
                   }}
                   animate={{ 
                     scale: [1, 1.1, 1],
@@ -221,10 +221,10 @@ export default function Home() {
                 {[1, 2, 3, 4, 5].map((i) => (
                   <motion.path
                     key={`network-${i}`}
-                    d={`M${240 + i * 5},155 C${230 + i * 10},170 ${260 - i * 5},180 ${250 + i * 2},190`}
+                    d={`M${48 + i}vmax,31vmax C${46 + i * 2}vmax,34vmax ${52 - i}vmax,36vmax ${50 + i * 0.4}vmax,38vmax`}
                     className="fill-none stroke-[#ff00ff] stroke-1"
                     style={{ 
-                      filter: 'drop-shadow(0 0 3px #ff00ff)'
+                      filter: 'drop-shadow(0 0 3vmax #ff00ff)'
                     }}
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ 
