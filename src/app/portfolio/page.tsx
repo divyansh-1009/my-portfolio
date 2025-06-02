@@ -15,8 +15,29 @@ import {
   faBootstrap
 } from '@fortawesome/free-brands-svg-icons';
 import { SiTypescript, SiMongodb, SiExpress, SiSpringboot, SiCplusplus } from 'react-icons/si';
+import { useState, useEffect } from 'react';
 
 export default function Portfolio() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+  
   const skills = [
     { name: 'C/C++', icon: <SiCplusplus />, color: '#00599C' },
     { name: 'Python', icon: <FontAwesomeIcon icon={faPython} />, color: '#3776AB' },
@@ -39,7 +60,7 @@ export default function Portfolio() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-23vmax] md:ml-[-13vmax]">
+      <div className={`min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 md:p-16 ${isMobile ? 'mt-20' : 'md:ml-20'}`}>
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             <motion.h1 

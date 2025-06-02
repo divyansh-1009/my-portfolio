@@ -7,6 +7,25 @@ import { useState, useEffect } from 'react';
 export default function About(){
   const [activeParagraph, setActiveParagraph] = useState<number | null>(null);
   const [rotation, setRotation] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
 
   // Animation for the rotating highlight point
   useEffect(() => {
@@ -20,8 +39,8 @@ export default function About(){
   return (
     <>
     <BackgroundAnimation/>
-    <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-21vmax] md:ml-0 mr-[2vmax] md:mr-0">
-      <div className="w-full max-w-6xl md:ml-[-10vw] relative">
+    <div className={`min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 md:p-16 ${isMobile ? 'mt-20' : 'md:ml-20'}`}>
+      <div className="w-full max-w-6xl relative">
         {/* Pulsating neon box */}
         <div className="absolute inset-0 -m-4 rounded-lg opacity-70 animate-pulse" 
           style={{
@@ -39,7 +58,7 @@ export default function About(){
             top: `calc(50% + ${Math.sin(rotation * (Math.PI / 180)) * 50}%)`,
             left: `calc(50% + ${Math.cos(rotation * (Math.PI / 180)) * 50}%)`,
             transform: 'translate(-50%, -50%)',
-            boxShadow: '0 0 10px 3pxrgb(110, 99, 38), 0 0 20px 6px rgba(255, 215, 0, 0.5)',
+            boxShadow: '0 0 10px 3px rgb(110, 99, 38), 0 0 20px 6px rgba(255, 215, 0, 0.5)',
             filter: 'blur(0.5px)',
           }}
         />

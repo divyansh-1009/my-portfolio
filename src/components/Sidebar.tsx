@@ -17,11 +17,30 @@ import {
   faGithub,
   faInstagram
 } from "@fortawesome/free-brands-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
 
   const navItems = [
     { name: "Home", path: "/", icon: faHome },
@@ -40,7 +59,6 @@ export default function Sidebar() {
   return (
     <>
       <style jsx global>{`
-        
         @keyframes radialAppear {
           0% {
             opacity: 0;
@@ -65,69 +83,128 @@ export default function Sidebar() {
         }
       `}</style>
 
-      <aside className="w-20 fixed h-full bg-[#181818] text-white border-r border-gray-700 flex flex-col justify-between">
-        <div className="p-3">
-          <div className="flex justify-center mb-3">
-            <Image
-              src="/logo-d.png"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-          </div>
-          <h1 className="text-xs font-bold mb-8 text-center">DIVYANSH</h1>
-          <nav>
-            <ul className="space-y-5">
-              {navItems.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    href={item.path}
-                    className={`relative flex items-center justify-center p-3 rounded-md ${
-                      pathname === item.path
-                        ? "bg-gray-700 font-medium"
-                        : "hover:bg-gray-700"
-                    }`}
-                    title={item.name}
-                    onMouseEnter={() => setHoveredItem(item.path)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                  >
-                    {!hoveredItem || hoveredItem !== item.path ? (
+      {isMobile ? (
+        // Mobile top navigation bar
+        <div className="fixed top-0 left-0 w-full bg-[#181818] text-white border-b border-gray-700 z-50">
+          <div className="flex justify-between items-center px-4 py-2">
+            <div className="flex items-center">
+              <Image
+                src="/logo-d.png"
+                alt="Logo"
+                width={30}
+                height={30}
+                className="rounded-full mr-2"
+              />
+              <h1 className="text-xs font-bold">DIVYANSH</h1>
+            </div>
+            
+            <nav>
+              <ul className="flex space-x-4">
+                {navItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`relative flex items-center justify-center p-2 rounded-md ${
+                        pathname === item.path
+                          ? "text-[#ffd700]"
+                          : "text-white hover:text-[#ffd700]"
+                      }`}
+                      title={item.name}
+                    >
                       <FontAwesomeIcon
                         icon={item.icon}
-                        className={`w-5 h-5 ${
-                          pathname === item.path ? "text-[#ffd700]" : "text-white"
-                        }`}
+                        className="w-4 h-4"
                       />
-                    ) : (
-                      <span className="text-sm text-[#ffd700] radial-text">
-                        {item.name}
-                      </span>
-                    )}
-                  </Link>
-                </li>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+          
+          <div className="py-1 bg-gray-800">
+            <div className="flex justify-center gap-3">
+              {socialItems.map((item) => (
+                <a 
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-[#ffd700] transition-colors duration-300"
+                  title={item.name}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="w-3 h-3" />
+                </a>
               ))}
-            </ul>
-          </nav>
-        </div>
-        
-        <div className="p-3 pb-6">
-          <div className="flex flex-wrap justify-center gap-3">
-            {socialItems.map((item) => (
-              <a 
-                key={item.name}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#ffd700] transition-colors duration-300"
-                title={item.name}
-              >
-                <FontAwesomeIcon icon={item.icon} className="w-4 h-4" />
-              </a>
-            ))}
+            </div>
           </div>
         </div>
-      </aside>
+      ) : (
+        // Desktop sidebar
+        <aside className="w-20 fixed h-full bg-[#181818] text-white border-r border-gray-700 flex flex-col justify-between z-50">
+          <div className="p-3">
+            <div className="flex justify-center mb-3">
+              <Image
+                src="/logo-d.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            </div>
+            <h1 className="text-xs font-bold mb-8 text-center">DIVYANSH</h1>
+            <nav>
+              <ul className="space-y-5">
+                {navItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`relative flex items-center justify-center p-3 rounded-md ${
+                        pathname === item.path
+                          ? "bg-gray-700 font-medium"
+                          : "hover:bg-gray-700"
+                      }`}
+                      title={item.name}
+                      onMouseEnter={() => setHoveredItem(item.path)}
+                      onMouseLeave={() => setHoveredItem(null)}
+                    >
+                      {!hoveredItem || hoveredItem !== item.path ? (
+                        <FontAwesomeIcon
+                          icon={item.icon}
+                          className={`w-5 h-5 ${
+                            pathname === item.path ? "text-[#ffd700]" : "text-white"
+                          }`}
+                        />
+                      ) : (
+                        <span className="text-sm text-[#ffd700] radial-text">
+                          {item.name}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+          
+          <div className="p-3 pb-6">
+            <div className="flex flex-wrap justify-center gap-3">
+              {socialItems.map((item) => (
+                <a 
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-[#ffd700] transition-colors duration-300"
+                  title={item.name}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+      )}
     </>
   );
 }

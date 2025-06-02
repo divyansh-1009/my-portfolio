@@ -10,9 +10,28 @@ export default function Home() {
   const intro = "I'm ";
   const name = "ivyansh";
   const subtitle = "FULLSTACK DEVELOPER || AI/ML ENTHUSIAST";
+  const [isMobile, setIsMobile] = useState(false);
   
   const [displayedSubtitle, setDisplayedSubtitle] = useState("");
   const [isSubtitleComplete, setIsSubtitleComplete] = useState(false);
+
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
 
   useEffect(() => {
     let currentIndex = 0;
@@ -58,11 +77,11 @@ export default function Home() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="flex flex-col md:flex-row items-center justify-between overflow-x-hidden sm:p-20 ml-[-22vmax] md:ml-[-10vmax]">
+      <div className={`flex flex-col md:flex-row items-center justify-between w-full overflow-hidden p-4 sm:p-8 md:p-12 ${isMobile ? 'mt-20' : 'md:ml-20'}`}>
         {/* Text content */}
-        <main className="flex flex-col gap-6 w-full md:w-1/2">
+        <main className="flex flex-col gap-4 w-full md:w-1/2">
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -74,7 +93,7 @@ export default function Home() {
               {greeting}
             </motion.span> 
             <br /> 
-            <motion.span className="flex items-center">
+            <motion.span className="flex flex-wrap items-center">
               <motion.span 
                 className="inline-block hover:text-[#ffd700] transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
@@ -85,9 +104,9 @@ export default function Home() {
                 <Image 
                   src="/logo-d.png" 
                   alt="Logo" 
-                  width={70} 
-                  height={70} 
-                  className="rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-[#ffd700]/30"
+                  width={40} 
+                  height={40} 
+                  className="rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-[#ffd700]/30 sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px]"
                 />
                 <div className="absolute inset-0 rounded-full bg-[#ffd700] opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-md"></div>
               </div>
@@ -102,7 +121,7 @@ export default function Home() {
           
           {/* Subtitle with typing effect */}
           <motion.div 
-            className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 flex items-center"
+            className="text-sm sm:text-base md:text-xl text-gray-500 dark:text-gray-400 flex items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -114,7 +133,7 @@ export default function Home() {
               <motion.span
                 variants={cursorVariants}
                 animate="blinking"
-                className="w-0.5 h-5 bg-[#ffd700] ml-1"
+                className="w-0.5 h-4 md:h-5 bg-[#ffd700] ml-1"
               />
             )}
           </motion.div>
@@ -129,7 +148,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/divyansh-yadav-b17b2b328/"
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-2 sm:px-8 sm:py-3 bg-transparent text-[#ffd700] text-sm md:text-base font-medium border-2 border-[#ffd700] rounded-md hover:bg-[#ffd700]/10 transition-all transform hover:scale-105 hover:shadow-md hover:shadow-[#ffd700]/20"
+              className="inline-flex items-center gap-2 px-5 py-2 md:px-8 md:py-3 bg-transparent text-[#ffd700] text-sm md:text-base font-medium border-2 border-[#ffd700] rounded-md hover:bg-[#ffd700]/10 transition-all transform hover:scale-105 hover:shadow-md hover:shadow-[#ffd700]/20"
             >
               CONNECT WITH ME
             </Link>
@@ -138,12 +157,12 @@ export default function Home() {
 
         {/* Coding person animation with neon effects */}
         <motion.div 
-          className="flex mt-16 md:mt-0 w-full md:w-1/2 justify-center items-center"
+          className="flex mt-10 md:mt-0 w-full md:w-1/2 justify-center items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div className="relative w-72 h-72 md:w-80 md:h-80">
+          <div className="relative w-60 h-60 sm:w-64 sm:h-64 md:w-72 md:h-72">
             {/* Coder silhouette */}
             <motion.div 
               className="absolute inset-0 z-10"
@@ -155,7 +174,7 @@ export default function Home() {
                 {/* Coder outline with neon glow */}
                 <path 
                   d="M250,120 C270,120 290,130 300,150 C305,160 300,170 310,175 C320,180 330,170 335,180 C340,190 330,200 340,210 C350,220 360,210 370,220 C380,230 370,240 380,250 L380,350 L300,350 L300,380 L340,380 L340,400 L160,400 L160,380 L200,380 L200,350 L120,350 L120,250 C130,240 140,230 150,220 C160,210 170,220 180,210 C190,200 180,190 185,180 C190,170 200,180 205,175 C210,170 205,160 210,150 C220,130 230,120 250,120 z"
-                  className="fill-black/40 stroke-[#00ffff] stroke-2"
+                  className="fill-transparent stroke-[#00ffff] stroke-2"
                   style={{ 
                     filter: 'drop-shadow(0 0 5px #00ffff)'
                   }}
@@ -164,9 +183,9 @@ export default function Home() {
                 {/* Computer screen with neon border */}
                 <motion.rect 
                   x="170" y="280" width="160" height="110" rx="5" 
-                  className="fill-black/60 stroke-[#ffd700] stroke-2"
+                  className="fill-transparent stroke-[#ffd700] stroke-2"
                   style={{ 
-                    filter: 'drop-shadow(0 0 5vmax #ffd700)'
+                    filter: 'drop-shadow(0 0 4px #ffd700)'
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -183,7 +202,7 @@ export default function Home() {
                     height="6"
                     className="fill-[#00ffff]"
                     style={{ 
-                      filter: 'drop-shadow(0 0 3vmax #00ffff)'
+                      filter: 'drop-shadow(0 0 2px #00ffff)'
                     }}
                     initial={{ width: 0, opacity: 0 }}
                     animate={{ 
@@ -202,9 +221,9 @@ export default function Home() {
                 {/* Pulsing brain representing AI/ML */}
                 <motion.circle
                   cx="250" cy="145" r="20"
-                  className="fill-[#ff00ff]/40 stroke-[#ff00ff] stroke-1"
+                  className="fill-[#ff00ff]/20 stroke-[#ff00ff] stroke-1"
                   style={{ 
-                    filter: 'drop-shadow(0 0 8vmax #ff00ff)'
+                    filter: 'drop-shadow(0 0 5px #ff00ff)'
                   }}
                   animate={{ 
                     scale: [1, 1.1, 1],
@@ -221,10 +240,10 @@ export default function Home() {
                 {[1, 2, 3, 4, 5].map((i) => (
                   <motion.path
                     key={`network-${i}`}
-                    d={`M${48 + i}vmax,31vmax C${46 + i * 2}vmax,34vmax ${52 - i}vmax,36vmax ${50 + i * 0.4}vmax,38vmax`}
+                    d={`M${240 + i * 5},150 C${235 + i * 10},160 ${255 - i * 5},170 ${250 + i * 2},180`}
                     className="fill-none stroke-[#ff00ff] stroke-1"
                     style={{ 
-                      filter: 'drop-shadow(0 0 3vmax #ff00ff)'
+                      filter: 'drop-shadow(0 0 2px #ff00ff)'
                     }}
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ 

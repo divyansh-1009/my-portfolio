@@ -3,8 +3,29 @@ import BackgroundAnimation from '@/components/BackgroundAnimation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function Projects() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+
   const projects = [
     {
       id: 1,
@@ -34,12 +55,12 @@ export default function Projects() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-22vmax] md:ml-[-14vmax]">
+      <div className={`min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 md:p-16 ${isMobile ? 'mt-20' : 'md:ml-20'}`}>
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             {/* Animated header without character splitting */}
             <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-16 inline-block text-[#ffd700] font-serif"
+              className="text-4xl md:text-5xl font-bold mb-8 md:mb-16 inline-block text-[#ffd700] font-serif"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -49,7 +70,7 @@ export default function Projects() {
             </motion.h1>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {projects.map((project) => (
               <motion.div
                 key={project.id}
@@ -58,7 +79,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ 
                   scale: 1.03,
-                  boxShadow: "0 2vmax 6vmax -3vmax rgba(255, 215, 0, 0.2)"
+                  boxShadow: "0 8px 24px -12px rgba(255, 215, 0, 0.2)"
                 }}
               >
                 <div className="relative h-48 w-full overflow-hidden">
@@ -97,7 +118,7 @@ export default function Projects() {
             
             {/* Loading animation for more projects coming soon */}
             <motion.div 
-              className="bg-black/20 backdrop-blur-sm rounded-lg overflow-hidden border border-dashed border-[#ffd700]/30 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[350px] p-8"
+              className="bg-black/20 backdrop-blur-sm rounded-lg overflow-hidden border border-dashed border-[#ffd700]/30 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[350px] p-6 md:p-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
