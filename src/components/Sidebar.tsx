@@ -25,19 +25,12 @@ export default function Sidebar() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if we're on the client side
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
-      
-      // Initial check
-      checkMobile();
-      
-      // Add event listener for window resize
+      checkMobile(); 
       window.addEventListener('resize', checkMobile);
-      
-      // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
@@ -84,7 +77,6 @@ export default function Sidebar() {
       `}</style>
 
       {isMobile ? (
-        // Mobile top navigation bar
         <div className="fixed top-0 left-0 w-full bg-[#181818] text-white border-b border-gray-700 z-50">
           <div className="flex justify-between items-center px-4 py-2">
             <div className="flex items-center">
@@ -140,7 +132,6 @@ export default function Sidebar() {
           </div>
         </div>
       ) : (
-        // Desktop sidebar
         <aside className="w-20 fixed h-full bg-[#181818] text-white border-r border-gray-700 flex flex-col justify-between z-50">
           <div className="p-3">
             <div className="flex justify-center mb-3">

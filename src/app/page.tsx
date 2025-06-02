@@ -16,19 +16,12 @@ export default function Home() {
   const [isSubtitleComplete, setIsSubtitleComplete] = useState(false);
 
   useEffect(() => {
-    // Check if we're on the client side
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
-      
-      // Initial check
       checkMobile();
-      
-      // Add event listener for window resize
       window.addEventListener('resize', checkMobile);
-      
-      // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
@@ -64,7 +57,6 @@ export default function Home() {
     },
   };
 
-  // Animation variants for the coding figure
   const codeLines = [
     { width: "60%", delay: 0 },
     { width: "40%", delay: 0.5 },
@@ -78,7 +70,6 @@ export default function Home() {
     <>
       <BackgroundAnimation />
       <div className={`flex flex-col md:flex-row items-center justify-between w-full overflow-hidden p-4 sm:p-8 md:p-12 ${isMobile ? 'mt-20' : 'md:ml-20'}`}>
-        {/* Text content */}
         <main className="flex flex-col gap-4 w-full md:w-1/2">
           <motion.h1 
             className="text-3xl sm:text-4xl md:text-6xl font-bold"
@@ -119,7 +110,6 @@ export default function Home() {
             </motion.span>
           </motion.h1>
           
-          {/* Subtitle with typing effect */}
           <motion.div 
             className="text-sm sm:text-base md:text-xl text-gray-500 dark:text-gray-400 flex items-center"
             initial={{ opacity: 0 }}
