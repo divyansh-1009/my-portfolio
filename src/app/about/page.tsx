@@ -1,90 +1,96 @@
 'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faAngular, 
-  faHtml5, 
-  faCss3, 
-  faReact, 
-  faJsSquare, 
-  faGitAlt 
-} from '@fortawesome/free-brands-svg-icons';
-import styles from '@/styles/Cube.module.css';
+
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
-export default function About() {
-  // Replace the character-by-character animation with a whole title animation
+export default function About(){
+  const [activeParagraph, setActiveParagraph] = useState<number | null>(null);
+  const [rotation, setRotation] = useState(0);
+
+  // Animation for the rotating highlight point
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRotation(prevRotation => (prevRotation + 1) % 360);
+    }, 1); 
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <>
-      <BackgroundAnimation />
-      <div className="min-h-screen flex flex-row relative">
-        <div className="w-[60%] pr-8 sm:pr-16 md:pr-20 pl-0">
-          <div className="max-w-3xl">
-            {/* Animated header without splitting characters */}
-            <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-10 inline-block text-[#ffd700] font-serif"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              ABOUT ME
-            </motion.h1>
-            
-            <div className="space-y-6 text-lg leading-relaxed font-playfair text-left">
-              <motion.p 
-                className="font-['Dancing_Script'] transition-all duration-500 hover:text-[#ffd700]/90 hover:scale-105 transform origin-left"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                I'm currently pursuing my undergraduate studies in Computer Science and Engineering at the Indian Institute of Technology (IIT) Jodhpur. Ever since I was a child, technology has always fascinated me — from understanding how things work to building systems that solve real-world problems. Studying at one of the premier institutions in the country has only deepened my curiosity and sharpened my technical abilities.
-              </motion.p>
-              
-              <motion.p 
-                className="font-['Dancing_Script'] transition-all duration-500 hover:text-[#ffd700]/90 hover:scale-105 transform origin-left"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                What drives me most is the thrill of taking on challenges that others often shy away from. I'm especially passionate about full stack web development — I enjoy creating intuitive and efficient digital experiences, from designing responsive frontends to building powerful backend systems. Alongside this, I'm deeply interested in Artificial Intelligence and Machine Learning, and I often find myself exploring how these technologies can be integrated into web applications to make them smarter and more impactful. This blend of creativity and complexity keeps me constantly motivated.
-              </motion.p>
-              
-              <motion.p 
-                className="font-['Dancing_Script'] transition-all duration-500 hover:text-[#ffd700]/90 hover:scale-105 transform origin-left"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                Outside academics, I believe in maintaining a well-rounded life. I enjoy watching movies during my downtime, which helps me relax and recharge creatively. I'm also passionate about sports — particularly skating, basketball, and lawn tennis — as they keep me active and instill discipline, focus, and teamwork. These interests together shape me into a curious, resilient, and balanced individual, both inside and outside the world of code.
-              </motion.p>
-            </div>
-          </div>
+    <BackgroundAnimation/>
+    <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-21vmax] md:ml-0 mr-[2vmax] md:mr-0">
+      <div className="w-full max-w-6xl md:ml-[-10vw] relative">
+        {/* Pulsating neon box */}
+        <div className="absolute inset-0 -m-4 rounded-lg opacity-70 animate-pulse" 
+          style={{
+            boxShadow: '0 0 15px 2px #ffd700, 0 0 25px 5px rgba(255, 215, 0, 0.3)',
+            border: '1px solid #ffd700',
+            filter: 'blur(1px)',
+            zIndex: -1,
+          }}>
         </div>
         
-        <div className={styles['stage-cube-cont']}>
-          <div className={styles.cubespinner}>
-            <div className={styles.face1}>
-              <FontAwesomeIcon icon={faAngular} color="#DD0031" />
-            </div>
-            <div className={styles.face2}>
-              <FontAwesomeIcon icon={faHtml5} color="#F06529" />
-            </div>
-            <div className={styles.face3}>
-              <FontAwesomeIcon icon={faCss3} color="#28A4D9" />
-            </div>
-            <div className={styles.face4}>
-              <FontAwesomeIcon icon={faReact} color="#5ED4F4" />
-            </div>
-            <div className={styles.face5}>
-              <FontAwesomeIcon icon={faJsSquare} color="#EFD81D" />
-            </div>
-            <div className={styles.face6}>
-              <FontAwesomeIcon icon={faGitAlt} color="#EC4D28" />
-            </div>
-          </div>
+        {/* Rotating highlight point */}
+        <div 
+          className="absolute w-4 h-4 rounded-full bg-white z-0"
+          style={{
+            top: `calc(50% + ${Math.sin(rotation * (Math.PI / 180)) * 50}%)`,
+            left: `calc(50% + ${Math.cos(rotation * (Math.PI / 180)) * 50}%)`,
+            transform: 'translate(-50%, -50%)',
+            boxShadow: '0 0 10px 3pxrgb(110, 99, 38), 0 0 20px 6px rgba(255, 215, 0, 0.5)',
+            filter: 'blur(0.5px)',
+          }}
+        />
+        
+        <div className="text-center mb-6">
+          <motion.h1 
+            className="text-4xl md:text-5xl font-bold mb-8 inline-block text-[#ffd700] font-serif"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+          >
+            ABOUT ME
+          </motion.h1>
         </div>
+        
+        <motion.div 
+          className="text-left relative z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <motion.p 
+            className={`transition-all duration-300 ${activeParagraph === 0 ? 'text-[#ffd700] scale-[1.02]' : ''}`}
+            whileHover={{ color: "#ffd700", scale: 1.02 }}
+            onTouchStart={() => setActiveParagraph(0)}
+            onTouchEnd={() => setActiveParagraph(null)}
+          >
+            I'm currently pursuing my undergraduate studies in Computer Science and Engineering at the Indian Institute of Technology (IIT) Jodhpur. Ever since I was a child, technology has always fascinated me — from understanding how things work to building systems that solve real-world problems. Studying at one of the premier institutions in the country has only deepened my curiosity and sharpened my technical abilities.
+          </motion.p>
+          <br/>
+          <motion.p 
+            className={`transition-all duration-300 ${activeParagraph === 1 ? 'text-[#ffd700] scale-[1.02]' : ''}`}
+            whileHover={{ color: "#ffd700", scale: 1.02 }}
+            onTouchStart={() => setActiveParagraph(1)}
+            onTouchEnd={() => setActiveParagraph(null)}
+          >
+            What drives me most is the thrill of taking on challenges that others often shy away from. I'm especially passionate about full stack web development — I enjoy creating intuitive and efficient digital experiences, from designing responsive frontends to building powerful backend systems. Alongside this, I'm deeply interested in Artificial Intelligence and Machine Learning, and I often find myself exploring how these technologies can be integrated into web applications to make them smarter and more impactful. This blend of creativity and complexity keeps me constantly motivated.
+          </motion.p>
+          <br/>
+          <motion.p 
+            className={`transition-all duration-300 ${activeParagraph === 2 ? 'text-[#ffd700] scale-[1.02]' : ''}`}
+            whileHover={{ color: "#ffd700", scale: 1.02 }}
+            onTouchStart={() => setActiveParagraph(2)}
+            onTouchEnd={() => setActiveParagraph(null)}
+          >
+            Outside academics, I believe in maintaining a well-rounded life. I enjoy watching movies during my downtime, which helps me relax and recharge creatively. I'm also passionate about sports — particularly skating, basketball, and lawn tennis — as they keep me active and instill discipline, focus, and teamwork. These interests together shape me into a curious, resilient, and balanced individual, both inside and outside the world of code.
+          </motion.p>
+        </motion.div>
       </div>
+    </div>
     </>
-  );
+  )
 }
