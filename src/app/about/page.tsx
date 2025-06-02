@@ -32,7 +32,7 @@ export default function About() {
     <>
       <BackgroundAnimation />
       <div
-        className={`min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 md:p-12 ${
+        className={`min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 md:p-25 ${
           isMobile ? 'mt-20' : ''
         }`}
       >
