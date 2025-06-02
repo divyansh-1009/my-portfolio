@@ -16,7 +16,6 @@ export default function Projects() {
       checkMobile();
       window.addEventListener('resize', checkMobile);
       
-      // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
@@ -150,7 +149,7 @@ export default function Projects() {
                   repeatType: "reverse"
                 }}
               >
-                <div className="text-green-400">// Coding in progress...</div>
+                <div className="text-green-400">Coding in progress...</div>
                 <div className="text-blue-400 mt-2">function <span className="text-yellow-400">buildProject</span>() &#123;</div>
                 <div className="ml-4 text-gray-300">return <span className="text-purple-400">amazing</span>;</div>
                 <div className="text-blue-400">&#125;</div>

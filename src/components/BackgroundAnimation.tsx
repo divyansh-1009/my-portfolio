@@ -15,7 +15,6 @@ const BackgroundAnimation = () => {
     let particles: Particle[] = [];
     const particleCount = 50;
     
-    // Set canvas to full window size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -24,7 +23,6 @@ const BackgroundAnimation = () => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
     
-    // Particle class
     class Particle {
       x: number;
       y: number;
@@ -46,7 +44,7 @@ const BackgroundAnimation = () => {
         this.x += this.speedX;
         this.y += this.speedY;
         
-        // Bounce off edges
+        {/*Bounce off edges*/}
         if (this.x > canvasWidth || this.x < 0) {
           this.speedX = -this.speedX;
         }
@@ -66,7 +64,6 @@ const BackgroundAnimation = () => {
       }
     }
     
-    // Create particles
     const initParticles = () => {
       particles = [];
       for (let i = 0; i < particleCount; i++) {
@@ -74,7 +71,6 @@ const BackgroundAnimation = () => {
       }
     };
     
-    // Connect particles with lines
     const connectParticles = () => {
       if (!ctx) return;
       
@@ -96,8 +92,7 @@ const BackgroundAnimation = () => {
         }
       }
     };
-    
-    // Animation loop
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
