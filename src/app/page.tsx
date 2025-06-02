@@ -120,7 +120,7 @@ export default function Home() {
           </motion.div>
           
           <motion.div 
-            className="mt-6"
+            className="mt-4 md:mt-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
@@ -129,7 +129,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/divyansh-yadav-b17b2b328/"
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-transparent text-[#ffd700] font-medium border-2 border-[#ffd700] rounded-md hover:bg-[#ffd700]/10 transition-all transform hover:scale-105 hover:shadow-md hover:shadow-[#ffd700]/20"
+              className="inline-flex items-center gap-2 px-6 py-2 sm:px-8 sm:py-3 bg-transparent text-[#ffd700] text-sm md:text-base font-medium border-2 border-[#ffd700] rounded-md hover:bg-[#ffd700]/10 transition-all transform hover:scale-105 hover:shadow-md hover:shadow-[#ffd700]/20"
             >
               CONNECT WITH ME
             </Link>
@@ -157,7 +157,7 @@ export default function Home() {
                   d="M250,120 C270,120 290,130 300,150 C305,160 300,170 310,175 C320,180 330,170 335,180 C340,190 330,200 340,210 C350,220 360,210 370,220 C380,230 370,240 380,250 L380,350 L300,350 L300,380 L340,380 L340,400 L160,400 L160,380 L200,380 L200,350 L120,350 L120,250 C130,240 140,230 150,220 C160,210 170,220 180,210 C190,200 180,190 185,180 C190,170 200,180 205,175 C210,170 205,160 210,150 C220,130 230,120 250,120 z"
                   className="fill-black/40 stroke-[#00ffff] stroke-2"
                   style={{ 
-                    filter: 'drop-shadow(0 0 10vmax #00ffff) drop-shadow(0 0 20vmax #00ffff)'
+                    filter: 'drop-shadow(0 0 5px #00ffff)'
                   }}
                 />
                 
@@ -240,20 +240,6 @@ export default function Home() {
                 ))}
               </svg>
             </motion.div>
-            
-            {/* Glowing background effect */}
-            <motion.div 
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-3xl -z-10"
-              animate={{ 
-                scale: [1, 1.1, 1],
-                opacity: [0.3, 0.5, 0.3],
-                rotate: [0, 5, 0, -5, 0]
-              }}
-              transition={{ 
-                duration: 10,
-                repeat: Infinity 
-              }}
-            />
           </div>
         </motion.div>
       </div>
