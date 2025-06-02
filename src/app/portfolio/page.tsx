@@ -39,7 +39,7 @@ export default function Portfolio() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24">
+      <div className="min-h-screen flex flex-col items-center justify-start p-8 sm:p-16 md:p-24 ml-[-23vmax] md:ml-[-10vmax]">
         <div className="w-full max-w-6xl">
           <div className="text-center mb-12">
             <motion.h1 
@@ -63,8 +63,8 @@ export default function Portfolio() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ 
                   scale: 1.05, 
-                  boxShadow: `0 0 20px ${skill.color}40`,
-                  y: -5
+                  boxShadow: `0 0 20vmax ${skill.color}40`,
+                  y: -5 
                 }}
               >
                 <div 

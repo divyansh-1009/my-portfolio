@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <>
       <BackgroundAnimation />
-      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen p-8 sm:p-20 ml-[-20vmax] md:ml-0">
+      <div className="flex flex-col md:flex-row items-center justify-between min-h-screen p-8 sm:p-20 ml-[-20vmax] md:ml-[-10vmax]">
         {/* Text content */}
         <main className="flex flex-col gap-6 w-full md:w-1/2">
           <motion.h1 
